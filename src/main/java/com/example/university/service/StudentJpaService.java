@@ -26,6 +26,15 @@ public class StudentJpaService implements StudentRepository {
     }
 
     @Override
+    public Student getStudentById(int studentId) {
+        try {
+            return studentJpaRepository.findById(studentId).get();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "studentId " + studentId + " not found");
+        }
+    }
+
+    @Override
     public Student addStudent(Student student) {
         studentJpaRepository.save(student);
         return student;
@@ -57,7 +66,12 @@ public class StudentJpaService implements StudentRepository {
 
     @Override
     public List<Course> getStudentCourses(int studentId) {
-        return null;
+        try {
+            Student student = studentJpaRepository.findById(studentId).get();
+            return student.getCourses();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "studentId " + studentId + " not found");
+        }
     }
 
 }

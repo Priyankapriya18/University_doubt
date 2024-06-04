@@ -21,7 +21,7 @@ public class CourseJpaService implements CourseRepository {
 
     @Override
     public List<Course> getCourses() {
-        List<Course> courseList = courseJpaService.findAll();
+        List<Course> courseList = courseJpaRepository.findAll();
         ArrayList<Course> courses = new ArrayList<>(courseList);
         return courses;
     }
